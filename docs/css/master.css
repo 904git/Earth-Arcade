@@ -1,0 +1,694 @@
+@import url(font.css);
+:root {
+    --white-color: #f3f3f3;
+    --black-color: #222222;
+}
+
+/* basic style */
+* {
+    margin: 0;
+    padding: 0;
+}
+ul {
+    list-style: none;
+}
+a {
+    text-decoration: none;
+}
+img {
+    vertical-align: top;
+    width: 100%;
+    object-fit: cover;
+}
+video {
+    vertical-align: top;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+/* html, body {
+    overflow-x: hidden;
+} */
+/* 스크롤바 없애기 */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: none; /*크롬, 사파리*/
+}
+html,
+body {
+    -ms-overflow-style: none; /*IE, Edge*/
+    scrollbar-width: none; /*Firefox*/
+}
+/* index.html style */
+#home {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: #5526AA;
+    background: linear-gradient(180deg,rgba(85, 38, 170, 1) 0%, rgba(23, 14, 81, 1) 100%);
+}
+#home h1 {
+    text-indent: -9999px;
+    background: url(../images/logo.png) no-repeat 0 0;
+    width: 500px;
+    height: 275px;
+    background-size: cover;
+    margin-bottom: 10px;
+}
+#home h2 {
+    font-family: "DOSIyagiBoldface";
+    font-size: 80px;
+    color: var(--white-color);
+    margin-bottom: 10px;
+}
+#home p, 
+#home a {
+    font-family: "DOSIyagiBoldface";
+    color: #F7CC1D;
+}
+#home p {
+    font-size: 30px;
+    margin-bottom: 5px;
+}
+#home a {
+    font-size: 24px;
+}
+/* main.html style */
+#main {
+    background: #5526AA;
+    background: linear-gradient(180deg,rgba(85, 38, 170, 1) 0%, rgba(23, 14, 81, 1) 100%);
+}
+#menu-btn {
+    position: fixed;
+    top: 30px;
+    left: 30px;
+    z-index: 1000;
+}
+#menu-btn>a {
+    font-family: 'DOSIyagiBoldface';
+    font-size: 24px;
+    color: var(--white-color);
+}
+/* gnb style */
+#gnb {
+    width: 100%;
+    height: 0;
+    background: #5526AA;
+    background: linear-gradient(180deg,rgba(85, 38, 170, 1) 0%, rgba(23, 14, 81, 1) 100%);
+    transition: .5s;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 500;
+    opacity: 0;
+    display: none;
+}
+#gnb h2 {
+    padding: 60px 0;
+    text-align: center;
+    font-family: 'DOSIyagiBoldface';
+    font-size: 80px;
+    color: #1BE5DE;
+}
+#gnb>ul>li {
+    text-align: center;
+    margin-bottom: 50px;
+}
+#gnb>ul>li>a {
+    font-family: 'DOSIyagiBoldface';
+    font-size: 50px;
+    color: var(--white-color);
+    position: relative;
+}
+#gnb>ul>li:hover>a {
+    color: #F7CC1D;
+}
+#gnb>ul>li:hover>a::before {
+    content: "";
+    display: block;
+    background: url(../images/monster7.png) no-repeat 0 0;
+    background-size: cover;
+    width: 50px;
+    height: 37px;
+    position: absolute;
+    left: -80px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.sub-url {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 200px;
+}
+.sub-url>p>a {
+    font-family: 'DOSIyagiBoldface';
+    font-size: 30px;
+    color: #999;
+}
+/* contents */
+#contents {
+    width: 100%;
+}
+/* section style */
+/* video container */
+.video-container {
+    position: relative;
+}
+.video-container .video-box {
+    width: 100%;
+    height: 100vh;
+}
+.video-container .skip-btn {
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+    z-index: 1000;
+}
+.video-container .skip-btn>a {
+    font-family: 'DOSIyagiBoldface';
+    font-size: 24px;
+    color: var(--white-color);
+}
+/* prologue-container */
+.prologue-container {
+    height: 100vh;
+    margin-bottom: 80vh;
+    position: relative;
+}
+/* prologue-bg */
+.prologue-container .prologue-bg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1000;
+}
+.prologue-bg>div {
+    position: absolute;
+    transform: translateY(50px);
+}
+.prologue-bg .object01 {
+    width: 260px;
+    height: 260px;
+    background: url(../images/bg/earth.png) no-repeat 0 0;
+    background-size: cover;
+    top: 62px;
+    left: 128px;
+}
+.prologue-bg .object02 {
+    width: 120px;
+    height: 120px;
+    background: url(../images/bg/planet1.png) no-repeat 0 0;
+    background-size: cover;
+    top: 800px;
+    left: 1080px;
+    transform: rotate(5deg);
+}
+.prologue-bg .object03 {
+    width: 200px;
+    height: 132px;
+    background: url(../images/bg/planet2.png) no-repeat 0 0;
+    background-size: cover;
+    top: 510px;
+    left: 1300px;
+}
+.prologue-bg .object04 {
+    width: 180px;
+    height: 180px;
+    background: url(../images/bg/planet3.png) no-repeat 0 0;
+    background-size: cover;
+    top: 120px;
+    left: 1580px;
+}
+.prologue-bg .object05 {
+    width: 482px;
+    height: 282px;
+    background: url(../images/bg/planet4.png) no-repeat 0 0;
+    background-size: cover;
+    top: 570px;
+    left: -173px;
+    transform: rotate(-14deg);
+}
+.prologue-bg .object06,
+.prologue-bg .object07,
+.prologue-bg .object08,
+.prologue-bg .object09,
+.prologue-bg .object10 {
+    width: 40px;
+    height: 40px;
+    background: url(../images/bg/star5.png) no-repeat 0 0;
+    background-size: cover;
+}
+.prologue-bg .object06 {
+    top: 50px;
+    right: 538px;
+}
+.prologue-bg .object07 {
+    top: 164px;
+    left: 588px;
+}
+.prologue-bg .object08 {
+    top: 427px;
+    left: 145px;
+}
+.prologue-bg .object09 {
+    bottom: 197px;
+    right: 156px;
+}
+.prologue-bg .object10 {
+    bottom: 106px;
+    left: 500px;
+}
+/* prologue-box */
+.prologue-container .prologue-box {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.prologue-box .logo {
+    width: 500px;
+    margin: 0 auto 30px;
+    transition: .5s;
+
+    transform: scale(0);
+    opacity: 0;
+}
+.prologue-box p {
+    font-family: 'PFStardust';
+    font-weight: 400;
+    line-height: 20px;
+    color: var(--white-color);
+    margin-bottom: 20px;
+    transition: .5s;
+
+    transform: scale(0);
+    opacity: 0;
+}
+/* episode-container */
+/* 가로 스크롤 섹션 래퍼 */
+.episode-container {
+    position: relative; /* JS로 동적 height 세팅 */
+    margin-bottom: 80vh;
+}
+/* sticky로 한 화면 고정 */
+.episode-inner {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+/* 가로 트랙: 실제 가로 길이만큼 확장 */
+.episode-flex {
+    display: flex;
+    height: 100%;
+}
+/* 가로 패널들 */
+.episode-box {
+    /* width: 100vw; */
+    flex: 0 0 calc(100vw); /* gap 보정 */
+    margin-right: 300px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.episode-box:last-child {
+    margin-right: 0;
+}
+/* episode-bg */
+.episode-bg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1000;
+}
+.episode-bg>div {
+    position: absolute;
+}
+.episode-bg p { /* 년도 */
+    font-family: 'DOSIyagiBoldface';
+    font-size: 200px;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--white-color);
+}
+/* episode 1 */
+.episode1 .object01 {
+    width: 450px;
+    height: 450px;
+    border: 30px solid var(--white-color);
+    background: url(../images/episode/poster1.png) no-repeat 0 0;
+    background-size: cover;
+    top: 111px;
+    right: -10px;
+    transform: rotate(8deg);
+    transition: .5s;
+}
+.episode1 .object02 {
+    width: 450px;
+    height: 450px;
+    border: 30px solid var(--white-color);
+    background: url(../images/episode/arms_torong1.png) no-repeat 0 0;
+    background-size: cover;
+    bottom: 116px;
+    left: 0;
+    transform: rotate(-15deg);
+}
+.episode1 .object03 {
+    top: 111px;
+    left: 425px;
+    transform: rotate(-8deg);
+}
+/* episode 2 */
+.episode2 .object01 {
+    width: 450px;
+    height: 450px;
+    border: 30px solid var(--white-color);
+    background: url(../images/episode/poster2.png) no-repeat 0 0;
+    background-size: cover;
+    top: 111px;
+    right: -10px;
+    transform: rotate(8deg);
+}
+.episode2 .object02 {
+    width: 450px;
+    height: 450px;
+    border: 30px solid var(--white-color);
+    background: url(../images/episode/arms_torong2.png) no-repeat 0 0;
+    background-size: cover;
+    bottom: 116px;
+    left: 0;
+    transform: rotate(-15deg);
+}
+.episode2 .object03 {
+    top: 111px;
+    left: 425px;
+    transform: rotate(-8deg);
+}
+/* episode 3 */
+.episode3 .object01 {
+    width: 450px;
+    height: 450px;
+    border: 30px solid var(--white-color);
+    background: url(../images/episode/poster3.png) no-repeat 0 0;
+    background-size: cover;
+    top: 111px;
+    right: -10px;
+    transform: rotate(8deg);
+}
+.episode3 .object02 {
+    width: 450px;
+    height: 450px;
+    border: 30px solid var(--white-color);
+    background: url(../images/episode/arms_torong3.png) no-repeat 0 0;
+    background-size: cover;
+    bottom: 116px;
+    left: 0;
+    transform: rotate(-15deg);
+}
+.episode3 .object03 {
+    top: 111px;
+    left: 425px;
+    transform: rotate(-8deg);
+}
+/* description */
+.episode-box>.description {
+    text-align: center;
+    /* position: fixed; */
+    position: absolute;  /* fixed → absolute */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.episode-box>.description>h2 {
+    font-family: 'DOSIyagiBoldface';
+    font-size: 150px;
+    color: #F1129F;
+    margin-bottom: 30px;
+    -webkit-text-stroke: 1px var(--black-color);
+    /* text-shadow: -5px 0px var(--black-color), 0px 5px var(--black-color), 5px 0px var(--black-color), 0px -5px var(--black-color); */
+}
+.episode-box>.description>p {
+    font-family: 'PFStardust';
+    font-weight: 400;
+    line-height: 20px;
+    color: var(--white-color);
+    /* -webkit-text-stroke: 0.2px var(--black-color); */
+    text-shadow: -1px 0px var(--black-color), 0px 1px var(--black-color), 1px 0px var(--black-color), 0px -1px var(--black-color);
+}
+/* character-container */
+.characters-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    margin-bottom: 80vh;
+}
+.characters-container h3,
+.gallery-container h3 {
+    font-family: 'DOSIyagiBoldface';
+    font-size: 50px;
+    color: #F7CC1D;
+    text-align: center;
+    padding: 60px 0;
+}
+.characters-box {
+    display: flex;
+    flex-direction: column;
+    width: 1200px;
+    margin: 0 auto;
+}
+/* character-info */
+.character-info {
+    width: 100%;
+    height: 0;
+    box-sizing: border-box;
+    background: var(--black-color);
+    /* display: none; */
+    position: relative;
+    font-family: 'PFStardust';
+}
+.character-info>div {
+    display: none;
+    color: var(--white-color);
+    height: 100%;
+    padding: 80px 50px;
+    box-sizing: border-box;
+}
+.character-info.active {
+    border: 5px solid #F7CC1D;
+    margin-bottom: 20px;
+}
+.character-info.active~.characters {
+    flex-direction: row;
+}
+.character-info.active~.characters div>p{
+    display: none;
+}
+.character-info.active~.characters div>div::after {
+    background: none;
+}
+.character-info.active~.characters div>div::before {
+    display: none;
+}
+.character-info>div .ch-img {
+    display: flex;
+    gap: 20px;
+}
+.character-info>div .ch-img>img {
+    width: 200px;
+}
+.character-info>div .ch-description {
+    padding: 20px 20px 20px 30px;
+}
+.ch-description p {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+.ch-description>.ch-name {
+    font-size: 40px;
+    font-weight: 600;
+}
+.ch-description>.ch-highlight {
+    padding-top: 10px;
+    font-size: 24px;
+}
+.ch-description>.ch-story {
+    padding-top: 20px;
+    line-height: 22px;
+}
+#close-btn {
+    font-family: 'DOSIyagiBoldface';
+    font-size: 30px;
+    color: var(--white-color);
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+/* characters */
+.characters {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+}
+.characters .earth-hero,
+.characters .space-tteok-employee {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+.characters div>div {
+    width: 270px;
+    height: 300px;
+    box-sizing: border-box;
+    flex-shrink: 1;
+    transition: .5s;
+    cursor: pointer;
+    position: relative;
+    filter: opacity(80%);
+    background: var(--black-color);
+}
+.characters div>div.active {
+    filter: none;
+}
+.characters div>div:hover {
+    width: 500px;
+    filter: none;
+}
+.characters div>div::after,
+.characters div>div.active::after {
+    content: "";
+    display: none;
+    width: calc(100% + 10px);
+    height: calc(100% + 10px);
+    border: 10px solid #F7CC1D;
+    box-sizing: border-box;
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    background: url(../images/player_select.png) no-repeat 10px 100%;
+}
+.characters div>div:hover::after,
+.characters div>div.active::after {
+    display: block;
+}
+.characters div>div::before {
+    display: none;
+    color: #F1129F;
+    font-family: 'DOSIyagiBoldface';
+    font-size: 40px;
+    text-shadow: -2px 0px var(--black-color), 0px 2px var(--black-color), 2px 0px var(--black-color), 0px -2px var(--black-color);
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+.characters div>div:hover::before{
+    display: block;
+}
+.characters .earth-hero>div {
+    border: 5px solid #F1129F;
+}
+.characters .space-tteok-employee>div {
+    border: 5px solid #1BE5DE;
+}
+.characters div>p {
+    writing-mode: vertical-lr;
+    font-family: 'DOSIyagiBoldface';
+    font-size: 30px;
+    color: var(--white-color);
+    transform: rotate(180deg);
+}
+.characters .earth-hero>p{
+    margin-left: auto;
+}
+.characters .space-tteok-employee>p{
+    margin-right: auto;
+}
+.characters .character1 {
+    background: url(../images/character/member1_1.jpg) no-repeat 50% 50%;
+    background-size: cover;
+}
+.characters .character2 {
+    background: url(../images/character/member2_1.jpg) no-repeat 50% 50%;
+    background-size: cover;
+}
+.characters .character3 {
+    background: url(../images/character/member3_1.jpg) no-repeat 50% 50%;
+    background-size: cover;
+}
+.characters .character4 {
+    background: url(../images/character/member4_1.jpg) no-repeat 50% 50%;
+    background-size: cover;
+}
+.characters .character5 {
+    background: url(../images/character/character5.png) no-repeat 50% 50%;
+    background-size: cover;
+}
+.characters .character6 {
+    background: url(../images/character/character6.png) no-repeat 50% 50%;
+    background-size: cover;
+}
+.characters .character7 {
+    background: url(../images/character/character7_1.png) no-repeat 50% 50%;
+    background-size: cover;
+}
+.characters .character8 {
+    background: url(../images/episode/arms_torong1.png) no-repeat 50% 50%;
+    background-size: cover;
+}
+.characters .character1::before {
+    content: "EUNJI";
+}
+.characters .character2::before {
+    content: "MIMI";
+}
+.characters .character3::before {
+    content: "YOUNGJI";
+}
+.characters .character4::before {
+    content: "YUJIN";
+}
+.characters .character5::before {
+    content: "TORONG";
+}
+/* gallery-container */
+.gallery-container {
+    width: 100%;
+    height: 100vh;
+}
+.gallery-container>.gallery-box {
+    width: 1200px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 0 auto;
+    align-items: center;
+}
+.gallery-box>.gallery-img {
+    width: calc((100% - (20px * 3)) / 3);
+}
+.gallery-box>.gallery-img>img {
+    /* width: calc((100% - (20px * 5)) / 6); */
+    /* width: 200px; */
+    height: 300px;
+}
+/* footer */
+footer {
+    height: 600px;
+    background: var(--black-color);
+
+}

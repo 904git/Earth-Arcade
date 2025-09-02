@@ -1,0 +1,28 @@
+@font-face {
+    font-family: 'DOSIyagiBoldface';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url(font/DOSIyagiBoldface.ttf) format('truetype');
+}
+@font-face {
+    font-family: 'PFStardust';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url(font/PF스타더스트\ 3.0.ttf) format('truetype');
+}
+@font-face {
+    font-family: 'PFStardust';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url(font/PF스타더스트\ 3.0\ Bold.ttf) format('truetype');
+}
+@font-face {
+    font-family: 'PFStardust';
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+    src: url(font/PF스타더스트\ 3.0\ ExtraBold.ttf) format('truetype');
+}
