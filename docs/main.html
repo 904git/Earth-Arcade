@@ -320,12 +320,19 @@
             </div>
         </section>
         <section class="gallery-container">
-            <h3>GALLERY</h3>
-            <ul class="gallery-box"></ul>
+            <div class="gallery-inner">
+                <h3>GALLERY</h3>
+                <ul class="gallery-box"></ul>
+                <div class="progress-bar">
+                    <div class="pacman"></div>
+                    <div class="progress"></div>
+                </div>
+                <div class="progress-text"></div>
+            </div>
         </section>
-        <footer>
+        <!-- <footer>
             FOOTER 영역 입니다....
-        </footer>
+        </footer> -->
     </div>
     <script>
         $(function(){
@@ -335,10 +342,18 @@
             let device_height = $(window).height(); // 화면 높이
             let scrollTop = $(this).scrollTop(); // 스크롤 위치
             
-            const $section = $('.episode-container');
-            const $inner = $section.find('.episode-inner');
-            const $track = $section.find('.episode-flex');
-            let section_info = $('section').map(function(){
+            const $episode = $('.episode-container');
+            const $episode_inner = $episode.find('.episode-inner');
+            const $episode_track = $episode.find('.episode-flex');
+
+            const $gallery = $('.gallery-container');
+            const $gallery_inner = $gallery.find('.gallery-inner');
+            const $gallery_track = $gallery.find('.gallery-box');
+
+            let gallery_idx = 0;
+            let prevScroll = 0;
+
+            let section_info = $('section').map(function(){ // [0] - prologue, [1] - episode, [2] - character, [3] - gallery
                 let data = {};
                 data['top'] = $(this).offset().top;
                 data['height'] = $(this).innerHeight();
@@ -347,13 +362,16 @@
             });
             let prologue_box_top = $('.prologue-box').position().top; // 프롤로그 내용 시작 위치
             /* 화면 초기화 (새로고침 했을 때) */
+            writeGallery();
+            writeProgress();
             reset();
             function reset(){
                 // $(window).scrollTop(0);
                 // 프롤로그 내용 크기 커지면서 나타나기
                 $(".prologue-box>.logo, .prologue-box>p").css({ transform: `scale(1)`, opacity: 1 });
                 updateSectionMetrics();
-                onScroll();
+                onScrollEpisode();
+                onScrollGallery();
             }
             // 메뉴 나타나기, 사라지기
             /* 메뉴 버튼 토글 이벤트 */
@@ -385,63 +403,103 @@
                 }
             });
             /* scroll event */
-            $(window).on('scroll', function () {
-                scrollTop = $(this).scrollTop();
-                // 프롤로그 오브젝트 스크롤하면 움직이기
-                // 스크롤하면 에피소드에 오브젝트 움직이기
-                // 에피소드에 글자 스크롤에 따라 움직이기
-                /* prologue-container */
-                if(scrollTop < section_info[0].end){ // 스크롤이 프롤로그 길이만큼 내려갈때동안 내용 사라지기
-                    let progress = (section_info[0].end - scrollTop) / section_info[0].height; // 진행도(1 > 0)
-                    progress = Math.min(Math.max(progress, 0), 1);
-                    let move = Math.min(prologue_box_top+scrollTop - section_info[0].top, section_info[0].height);
+            let check = true;
+            $(window).on({
+                'scroll': function () {
+                    prevScroll = scrollTop;
+                    scrollTop = $(this).scrollTop();
+                    // 프롤로그 오브젝트 스크롤하면 움직이기
+                    // 스크롤하면 에피소드에 오브젝트 움직이기
+                    // 에피소드에 글자 스크롤에 따라 움직이기
+                    /* prologue-container */
+                    if(scrollTop < section_info[0].end){ // 스크롤이 프롤로그 길이만큼 내려갈때동안 내용 사라지기
+                        let progress = (section_info[0].end - scrollTop) / section_info[0].height; // 진행도(1 > 0)
+                        progress = Math.min(Math.max(progress, 0), 1);
+                        let move = Math.min(prologue_box_top+scrollTop - section_info[0].top, section_info[0].height);
 
-                    $('.prologue-box').css({ // 프롤로그 내용 중앙에 배치 & 사라지기
-                        top: prologue_box_top + move,
-                        opacity: progress,
-                        transition: '.5s'
-                    })
-                    $(".prologue-box>.logo").css({ // 프롤로그 로고 사라지기
-                        transform: `scale(${progress})`,
-                    });
-                    let yPos = 50 - 50*progress;
-                    $(".prologue-bg>div").each(function(index){ // 오브젝트 사라지기 (움직이는 것 추가 필요)
-                        $(this).css({
+                        $('.prologue-box').css({ // 프롤로그 내용 중앙에 배치 & 사라지기
+                            top: prologue_box_top + move,
                             opacity: progress,
+                            transition: '.5s'
                         })
-                    })
+                        $(".prologue-box>.logo").css({ // 프롤로그 로고 사라지기
+                            transform: `scale(${progress})`,
+                        });
+                        let yPos = 50 - 50*progress;
+                        $(".prologue-bg>div").each(function(index){ // 오브젝트 사라지기 (움직이는 것 추가 필요)
+                            $(this).css({
+                                opacity: progress,
+                            })
+                        })
+                    }
+                    /* episode-container */
+                    onScrollEpisode();
+                    /* gallery-container */
+                    onScrollGallery();
                 }
-                /* episode-container */
-                onScroll();
             });
 
             function updateSectionMetrics() {
-                // 트랙의 실제 가로 총길이
-                const trackWidth = $track.get(0).scrollWidth;
-
+                /* episode */
+                const episodeTrackWidth = $episode_track.get(0).scrollWidth; // 트랙의 실제 가로 총길이
                 // 섹션 높이 = (가로총길이 - 뷰포트너비) + 뷰포트높이
                 // 이렇게 해야 사용자가 세로로 스크롤할 때, 그 구간 동안 가로 이동이 완주됨
-                const sectionHeight = (trackWidth - device_width) + device_height;
-                $section.height(sectionHeight);
+                const episodeSectionHeight = (episodeTrackWidth - device_width) + device_height;
+                $episode.height(episodeSectionHeight);
+                
+                // 스크롤 시 사용할 값 저장
+                $episode.data('episodeTrackWidth', episodeTrackWidth);
+                $episode.data('maxX', Math.max(0, episodeTrackWidth - device_width));
+                
+                /* gallery */
+                const galleryTrackWidth = $gallery_track.get(0).scrollWidth; // 트랙의 실제 가로 총길이
+                // 섹션 높이 = (가로총길이 - 뷰포트너비) + 뷰포트높이
+                // 이렇게 해야 사용자가 세로로 스크롤할 때, 그 구간 동안 가로 이동이 완주됨
+                const gallerySectionHeight = (galleryTrackWidth - device_width) + device_height;
+                $gallery.height(gallerySectionHeight);
 
                 // 스크롤 시 사용할 값 저장
-                $section.data('trackWidth', trackWidth);
-                $section.data('maxX', Math.max(0, trackWidth - device_width));
+                $gallery.data('galleryTrackWidth', galleryTrackWidth);
+                $gallery.data('maxX', Math.max(0, galleryTrackWidth - device_width));
             }
 
-            function onScroll() {
-                const secTop = $section.offset().top;
-                const secH = $section.outerHeight();
+            function onScrollEpisode() {
+                const secTop = $episode.offset().top;
+                const secH = $episode.outerHeight();
                 const inView = scrollTop >= secTop && scrollTop <= secTop + secH;
 
                 if (!inView) return; // 스크롤 범위 밖이면
                 const viewportH = $(window).height();
-                const maxX = $section.data('maxX') || 0;
+                const maxX = $episode.data('maxX') || 0;
                 const scrolledIn = scrollTop - secTop; // 섹션 진입 후 진행된 세로 스크롤량
                 const progress = Math.min(Math.max(scrolledIn / (secH - viewportH), 0), 1); // 진행도(0 > 1), 그에 따른 가로 이동량
                 const translateX = - (maxX * progress);
-                $track.css('transform', `translateX(${translateX}px)`); // 가로 이동 적용
+                $episode_track.css('transform', `translateX(${translateX}px)`); // 가로 이동 적용
             }
+
+            function onScrollGallery() {
+                const secTop = $gallery.offset().top;
+                const secH = $gallery.outerHeight();
+                const inView = scrollTop >= secTop && scrollTop <= secTop + secH;
+
+                if (!inView) return; // 스크롤 범위 밖이면
+                const viewportH = $(window).height();
+                const maxX = $gallery.data('maxX') || 0;
+                const scrolledIn = scrollTop - secTop; // 섹션 진입 후 진행된 세로 스크롤량
+                const progress = Math.min(Math.max(scrolledIn / (secH - viewportH), 0), 1); // 진행도(0 > 1), 그에 따른 가로 이동량
+                const translateX = - (maxX * progress);
+                $gallery_track.css('transform', `translateX(${translateX}px)`); // 가로 이동 적용
+                $('.progress-bar>.pacman').css('left', `${progress*100}%`);
+                $('.progress>.star').each(function(index){
+                    if(index <= Math.floor(progress*10)){
+                        $(this).css('opacity', 0.5);
+                    }else{
+                        $(this).css('opacity', 1);
+                    }
+                });
+                $('.progress-text').text(Math.floor(progress*10));
+            }
+
             /* characters-container */
             // 마우스 클릭하면 캐릭터 상세 설명 나타나기(캐릭터 목록 아래로 배치)
             $('.characters>div>div').click(function(){
@@ -466,14 +524,34 @@
                     $(this).hide();
                 });
             });
-            // 갤러리 사진 나타나기(스크롤하면 바뀌기)
-            for(let i=1;i<=51;i++){
-                let img = $('<img>').attr('src', `images/gallery/${i}.jpg`).attr('alt', `현장 포토 ${i}`);
-                let li = $('<li>').attr('class', 'gallery-img');
-                img.appendTo(li);
-                li.appendTo($(('.gallery-box')));
+            // 갤러리 사진 출력
+            function writeGallery(){
+                for(let i=1;i<=10;i++){ // 51
+                    let img = $('<img>').attr('src', `images/gallery/${i}.jpg`).attr('alt', `현장 포토 ${i}`);
+                    let li = $('<li>').attr('class', 'gallery-img');
+                    img.appendTo(li);
+                    li.appendTo($(('.gallery-box')));
+                }
             }
-            
+            // 갤러리 별 출력
+            function writeProgress(){
+                for(let i=0;i<=10;i++){ // 51
+                    let div = $('<div>').attr('class', 'star');
+                    div.css('left',`${10*i}%`);
+                    div.appendTo($(('.progress-bar>.progress')));
+                }
+            }
+            // 갤러리 별 클릭
+            $('.progress>.star').click(function(){
+                const secTop = $gallery.offset().top;
+                const secH = $gallery.outerHeight();
+                const inView = scrollTop >= secTop && scrollTop <= secTop + secH;
+
+                if (!inView) return; // 스크롤 범위 밖이면
+                let nextScroll = $gallery.data('galleryTrackWidth')/10 * $(this).index();
+                console.log(secTop + nextScroll);
+                $(window).scrollTop(secTop + nextScroll);
+            });
         });
     </script>
 </body>
