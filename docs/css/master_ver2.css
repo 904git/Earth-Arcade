@@ -341,32 +341,14 @@ body {
     position: relative; /* JS로 동적 height 세팅 */
     margin-bottom: 80vh;
 }
-/* sticky로 한 화면 고정 */
-.episode-inner {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
-}
-/* 가로 트랙: 실제 가로 길이만큼 확장 */
-.episode-flex {
-    display: flex;
-    height: 100%;
-}
 /* 가로 패널들 */
 .episode-box {
-    /* width: 100vw; */
-    flex: 0 0 calc(100vw); /* gap 보정 */
-    margin-right: 300px;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-}
-.episode-box:last-child {
-    margin-right: 0;
 }
 /* episode-bg */
 .episode-bg {
