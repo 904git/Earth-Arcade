@@ -14,6 +14,7 @@ ul {
 }
 a {
     text-decoration: none;
+    color: var(--white-color);
 }
 img {
     vertical-align: top;
@@ -30,7 +31,7 @@ video {
     overflow-x: hidden;
 } */
 /* 스크롤바 없애기 */
-html::-webkit-scrollbar,
+/* html::-webkit-scrollbar,
 body::-webkit-scrollbar {
     display: none;
 }
@@ -38,7 +39,7 @@ html,
 body {
     -ms-overflow-style: none;
     scrollbar-width: none;
-}
+} */
 /* index.html style */
 #home {
     height: 100vh;
@@ -220,14 +221,14 @@ body {
 /* prologue-container */
 .prologue-container {
     height: 100vh;
-    margin-bottom: 80vh;
+    margin-bottom: 20vh;
     position: relative;
 }
 /* prologue-bg */
 .prologue-container .prologue-bg {
     width: 100%;
     height: 100%;
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
     z-index: -1000;
@@ -319,10 +320,6 @@ body {
 .prologue-box .logo {
     width: 500px;
     margin: 0 auto 30px;
-    transition: .5s;
-
-    transform: scale(0);
-    opacity: 0;
 }
 .prologue-box p {
     font-family: 'PFStardust';
@@ -331,20 +328,42 @@ body {
     color: var(--white-color);
     margin-bottom: 20px;
     transition: .5s;
-
-    transform: scale(0);
+    /* transform: scale(0); */
     opacity: 0;
 }
 /* episode-container */
 /* 가로 스크롤 섹션 래퍼 */
 .episode-container {
     position: relative; /* JS로 동적 height 세팅 */
-    margin-bottom: 80vh;
+    /* margin-bottom: 80vh; */
 }
-/* 가로 패널들 */
+.episode-container>.episode-common-bg {
+    position: absolute;
+}
+.episode-container>.episode-common-bg>div{
+    width: 50px;
+    position: absolute;
+}
+.episode-container>.episode-common-bg>div:nth-child(odd){
+    height: 50px;
+    background: url(../images/bg/star3.png);
+    background-size: cover;
+}
+.episode-container>.episode-common-bg>div:nth-child(even){
+    width: 50px;
+    height: 70px;
+    background: url(../images/bg/star2.png);
+    background-size: cover;
+    position: absolute;
+}
+.episode-container>.episode-common-bg>.object01 {
+    top: 10px;
+    left: 10px;
+}
 .episode-box {
     width: 100vw;
     height: 100vh;
+    margin-bottom: 20vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -402,9 +421,9 @@ body {
     border: 30px solid var(--white-color);
     background: url(../images/episode/poster2.png) no-repeat 0 0;
     background-size: cover;
-    top: 111px;
-    right: -10px;
-    transform: rotate(8deg);
+    top: 122px;
+    right: -8px;
+    transform: rotate(12deg);
 }
 .episode2 .object02 {
     width: 450px;
@@ -412,14 +431,14 @@ body {
     border: 30px solid var(--white-color);
     background: url(../images/episode/arms_torong2.png) no-repeat 0 0;
     background-size: cover;
-    bottom: 116px;
-    left: 0;
-    transform: rotate(-15deg);
+    bottom: 96px;
+    left: 12;
+    transform: rotate(-10deg);
 }
 .episode2 .object03 {
-    top: 111px;
-    left: 425px;
-    transform: rotate(-8deg);
+    top: 108px;
+    right: 496px;
+    transform: rotate(5deg);
 }
 /* episode 3 */
 .episode3 .object01 {
@@ -428,9 +447,9 @@ body {
     border: 30px solid var(--white-color);
     background: url(../images/episode/poster3.png) no-repeat 0 0;
     background-size: cover;
-    top: 111px;
-    right: -10px;
-    transform: rotate(8deg);
+    top: 126px;
+    right: 23px;
+    transform: rotate(12deg);
 }
 .episode3 .object02 {
     width: 450px;
@@ -438,14 +457,14 @@ body {
     border: 30px solid var(--white-color);
     background: url(../images/episode/arms_torong3.png) no-repeat 0 0;
     background-size: cover;
-    bottom: 116px;
-    left: 0;
-    transform: rotate(-15deg);
+    bottom: 96px;
+    left: 10;
+    transform: rotate(-24deg);
 }
 .episode3 .object03 {
-    top: 111px;
-    left: 425px;
-    transform: rotate(-8deg);
+    top: 100px;
+    left: 588px;
+    transform: rotate(-3deg);
 }
 /* description */
 .episode-box>.description {
@@ -467,7 +486,7 @@ body {
 .episode-box>.description>p {
     font-family: 'PFStardust';
     font-weight: 400;
-    line-height: 20px;
+    line-height: 24px;
     color: var(--white-color);
     /* -webkit-text-stroke: 0.2px var(--black-color); */
     text-shadow: -1px 0px var(--black-color), 0px 1px var(--black-color), 1px 0px var(--black-color), 0px -1px var(--black-color);
@@ -477,7 +496,7 @@ body {
     position: relative;
     width: 100%;
     height: 100vh;
-    margin-bottom: 80vh;
+    /* margin-bottom: 80vh; */
 }
 .characters-container h3,
 .gallery-container h3 {
@@ -508,7 +527,7 @@ body {
     display: none;
     color: var(--white-color);
     height: 100%;
-    padding: 80px 50px;
+    padding: 50px;
     box-sizing: border-box;
 }
 .character-info.active {
@@ -691,6 +710,15 @@ body {
 .characters .character5::before {
     content: "TORONG";
 }
+.characters .character6::before {
+    content: "CHEOLYONG";
+}
+.characters .character7::before {
+    content: "OKWANG";
+}
+.characters .character8::before {
+    content: "NA";
+}
 /* gallery-container */
 /* 가로 스크롤 섹션 래퍼 */
 .gallery-container {
@@ -780,6 +808,42 @@ body {
 /* footer */
 footer {
     height: 600px;
+    padding: 60px;
+    box-sizing: border-box;
     background: var(--black-color);
-
+    color: var(--white-color);
+}
+.comp-info {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 300px;
+    width: 800px;
+    gap: 20px;
+}
+.comp-info>li>.comp-name {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+.comp-info>li>.comp-name .comp-logo {
+    width: 200px;
+    margin-bottom: 10px;
+}
+.comp-info>li>p {
+    font-family: 'PFStardust';
+    font-weight: 400;
+    font-size: 16px;   
+}
+.comp-info>li>p:first-child {
+    color: #999;
+    margin-bottom: 10px;
+}
+.sns-info {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+.sns-info > li {
+    width: 30px;
 }

@@ -1,30 +1,186 @@
 $(function () {
-    /* 변수 선언 */
-    let device_width = $(window).width(); // 화면 너비
-    let device_height = $(window).height(); // 화면 높이
-    let scrollTop = $(this).scrollTop(); // 스크롤 위치
-
-    const $prologue = $('.prologue-container'); // 프롤로그 섹션
-
-    const $episode = $('.episode-container'); // 에피소드 섹션
-
-    const $gallery = $('.gallery-container'); // 갤러리 섹션
-    const $gallery_track = $gallery.find('.gallery-box'); // 갤러리 가로 스크롤 해야하는 영역
-
     /* 화면 초기화 (새로고침 했을 때) */
-    $('html, body').scrollTop(0); // 스크롤 맨 위로
+    // $('html, body').scrollTop(0); // 스크롤 맨 위로
     reset();
-
-    /* scroll event */
-    $(window).on('scroll', function () {
-        scrollTop = $(this).scrollTop();
-        /* prologue-container */
-        onScrollPrologue();
-        /* episode-container */
-        onScrollEpisode();
-        /* gallery-container */
-        onScrollGallery();
+    /* functions */
+    function reset() {
+        writeGallery();
+        writeBackground();
+    }
+    function writeGallery() {
+        // gallery 생성
+        for (let i = 1; i <= 10; i++) {
+            // 51 // 갤러리 사진 출력
+            let img = $('<img>').attr('src', `images/gallery/${i}.jpg`).attr('alt', `현장 포토 ${i}`);
+            let li = $('<li>').attr('class', 'gallery-img');
+            img.appendTo(li);
+            li.appendTo($('.gallery-box'));
+        }
+        for (let i = 0; i < 10; i++) {
+            // 51 // 갤러리 별 출력
+            let div = $('<div>').attr('class', 'star');
+            div.css('left', `${100 * i}px`);
+            div.appendTo($('.progress-bar>.progress'));
+        }
+    }
+    function writeBackground() {
+        // gallery 생성
+        for (let i = 1; i <= 5; i++) {
+            // 51 // 갤러리 사진 출력
+            let object = $('<div>').attr('class', `object0${i}`);
+            object.appendTo($('.episode-common-bg'));
+        }
+    }
+    /* gsap */
+    gsap.registerPlugin(SplitText, ScrollTrigger, ScrollSmoother);
+    console.clear();
+    ScrollTrigger.defaults({
+        toggleActions: 'restart none resume reverse',
+        scrub: 1,
+        markers: true,
     });
+    let smoother = ScrollSmoother.create({
+        wrapper: '.smooth-wrapper',
+        content: '.smooth-content',
+        smooth: 1, // how long (in seconds) it takes to "catch up" to the native scroll position
+        effects: true, // data-speed and data-lag attributes on elements
+        smoothTouch: 0.1, // much shorter smoothing time on touch devices (default is NO smoothing on touch devices)
+    });
+    // 프롤로그 메인 로고 확대되면서 나타나기
+    gsap.fromTo('.prologue-box>.logo', { opacity: 0, scale: 0 }, { opacity: 1, duration: 1, scale: 1 });
+    gsap.set('.prologue-box>.logo', { opacity: 1, scale: 1 });
+    gsap.to('.prologue-box>.logo', {
+        scrollTrigger: {
+            trigger: '.prologue-container',
+            start: 'top top',
+            end: '+=1000',
+            pin: true,
+        },
+        scale: 1.3,
+    });
+    // 프롤로그 배경 자동 회전하기
+    gsap.to('.prologue-bg', {
+        rotation: 10,
+        scale: 1.1,
+        duration: 50,
+        repeat: -1,
+        yoyo: true,
+    });
+    document.fonts.ready.then(() => {
+        // 프롤로그 텍스트 나타내기
+        gsap.set('.prologue-box>p', { opacity: 1 });
+        SplitText.create('.prologue-box>p', {
+            type: 'words,lines',
+            linesClass: 'line',
+            autoSplit: true,
+            mask: 'lines',
+            onSplit: (self) => {
+                return gsap.from(self.lines, {
+                    duration: 1,
+                    yPercent: 120,
+                    opacity: 0,
+                    stagger: 0.1,
+                    ease: 'expo.out',
+                });
+            },
+        });
+
+        $('.episode-box').each(function () {
+            let title = $(this).find('.description>h2');
+            let description = $(this).find('.description>p');
+            let box = $(this);
+            SplitText.create(title, {
+                type: 'words,lines',
+                linesClass: 'line',
+                autoSplit: true,
+                mask: 'lines',
+                onSplit: (self) => {
+                    return gsap.from(self.lines, {
+                        yPercent: 120,
+                        stagger: 0.1,
+                        scrollTrigger: {
+                            trigger: box,
+                            start: 'top center',
+                            end: '+=300',
+                        },
+                    });
+                },
+            });
+            SplitText.create(description, {
+                type: 'words,lines',
+                linesClass: 'line',
+                autoSplit: true,
+                mask: 'lines',
+                onSplit: (self) => {
+                    return gsap.from(self.lines, {
+                        yPercent: 120,
+                        stagger: 0.1,
+                        scrollTrigger: {
+                            trigger: box,
+                            start: 'top center',
+                            end: '+=300',
+                        },
+                    });
+                },
+            });
+        });
+    });
+    // 에피소드 오브젝트 옮기기
+    gsap.utils.toArray('.episode-box').forEach((box) => {
+        let timeline = gsap.timeline({
+            scrollTrigger: {
+                trigger: box,
+                start: 'top top',
+                end: 'bottom top',
+                pin: true,
+                scrub: true,
+            },
+        });
+        timeline.fromTo(box.querySelector('.object03'), { y: -100, opacity: 0 }, { y: 0, opacity: 1 }).fromTo(box.querySelector('.object01'), { y: -100, opacity: 0 }, { y: 0, opacity: 1 }).fromTo(box.querySelector('.object02'), { y: -100, opacity: 0 }, { y: 0, opacity: 1 });
+    });
+    gsap.utils.toArray('.episode-common-bg>div').forEach((object) => {
+        gsap.to(object, {
+            scrollTrigger: {
+                trigger: '.episode-container',
+                start: 'top top',
+                end: 'bottom top',
+            },
+            startAt: { y: -100 },
+            y: 500,
+        });
+    });
+    // 캐릭터 스크롤 텀 부여
+    gsap.to('.characters-container', {
+        scrollTrigger: {
+            trigger: '.characters-container',
+            start: 'top top',
+            end: '+=1000',
+            pin: true,
+        },
+    });
+
+    /* 갤러리 가로 스크롤 */
+    let sections = gsap.utils.toArray('.gallery-img');
+    gsap.to(sections, {
+        xPercent: -100 * (sections.length - 1),
+        ease: 'none',
+        scrollTrigger: {
+            trigger: '.gallery-container',
+            pin: true,
+            snap: 1 / (sections.length - 1),
+            end: '+=3500',
+        },
+    });
+    gsap.to('.pacman', {
+        x: 100 * (sections.length - 1),
+        ease: 'none',
+        scrollTrigger: {
+            trigger: '.gallery-box',
+            start: 'top top',
+            end: 'bottom top',
+        },
+    });
+    // gsap.set('.pacman', {x: 0});
 
     /* click event */
     /* characters-container */
@@ -37,7 +193,7 @@ $(function () {
         $('.character-info').addClass('active'); // 활성화
         $('.characters>div>div').css({ height: '100px', width: '100%' }); // 캐릭터 크기 변경
         $(`.character-info>.${ch_num}`).css({ display: 'flex' });
-        $('.character-info').show().stop().animate({ height: '600px' }, 'slow');
+        $('.character-info').show().stop().animate({ height: '550px' }, 'slow');
     });
     $('#close-btn').click(function (event) {
         // 뒤로가기 버튼 클릭 시 캐릭터 설명창 사라지기
@@ -53,148 +209,34 @@ $(function () {
                 $(this).hide();
             });
     });
-    /* gallery-container */
-    $('.progress>.star').click(function () {
-        // 갤러리 별 클릭
-        const secTop = Math.floor($gallery.offset().top);
-        const secH = $gallery.outerHeight();
-        const inView = scrollTop >= secTop && scrollTop <= secTop + secH;
-        if (!inView) return; // 스크롤 범위 밖이면
-        let nextScroll = ($gallery.data('galleryTrackWidth') / 10) * ($(this).index() - 1);
-        $('body, html').animate({ scrollTop: secTop + nextScroll }, 'slow');
+    /* 메뉴 버튼 토글 이벤트 - (메뉴 나타나기, 사라지기) */
+    let $gnb = $('#gnb');
+    $('#menu-btn').click(function (event) {
+        event.preventDefault();
+        let target = $(this);
+        if (!target.hasClass('active')) {
+            target.find('a').text('BACK');
+            $gnb.show().stop().animate({ height: '100vh', opacity: 1 }, 200);
+        } else {
+            target.find('a').text('MENU');
+            $gnb.css({ height: 0, opacity: 0 }).hide();
+        }
+        $(this).toggleClass('active');
     });
-
-    /* functions */
-    function reset() {
-        writeGallery();
-        // $('html, body').css('overflow', 'hidden');
-        // 프롤로그 내용 크기 커지면서 나타나기
-        $('.prologue-box>.logo').css({ transform: 'translate(-50%, -50%)' });
-        $('.prologue-box>.logo, .prologue-box>p').css({ transform: `scale(1)`, opacity: 1 });
-        updateSectionMetrics();
-        // onScrollEpisode();
-        // onScrollGallery();
-    }
-
-    function updateSectionMetrics() {
-        /* gallery */
-        const galleryTrackWidth = $gallery_track.get(0).scrollWidth; // 트랙의 실제 가로 총길이
-        // 섹션 높이 = (가로총길이 - 뷰포트너비) + 뷰포트높이
-        // 이렇게 해야 사용자가 세로로 스크롤할 때, 그 구간 동안 가로 이동이 완주됨
-        const gallerySectionHeight = galleryTrackWidth - device_width + device_height;
-        $gallery.height(gallerySectionHeight);
-
-        // 스크롤 시 사용할 값 저장
-        $gallery.data('galleryTrackWidth', galleryTrackWidth);
-        $gallery.data('maxX', Math.max(0, galleryTrackWidth - device_width));
-    }
-
-    function getSectionInfo(section) {
-        // const secTop = $episode.offset().top;
-        // const secH = $episode.outerHeight();
-
-        let info = {};
-        info['secTop'] = section.offset().top;
-        info['secH'] = section.outerHeight();
-        return info;
-    }
-
-    function checkScroll(section_info) {
-        // const inView = scrollTop >= secTop && scrollTop <= secTop + secH;
-        // if (!inView) return; // 스크롤 범위 밖이면
-        const inView = scrollTop >= section_info.secTop && scrollTop <= section_info.secTop + section_info.secH;
-        return inView;
-    }
-
-    function onScrollPrologue() {
-        /* prologue scroll */ const $prologue_info = getSectionInfo($prologue);
-        if (!checkScroll($prologue_info)) return; // 스크롤 범위 밖이면
-
-        let progress = ($prologue_info.secTop + $prologue_info.secH - scrollTop) / $prologue_info.secH; // 진행도(1 > 0)
-        progress = Math.min(Math.max(progress, 0), 1);
-        const scrolledIn = scrollTop - $prologue_info.secTop; // 섹션 진입 후 진행된 세로 스크롤량
-        $('.prologue-box').css({
-            // 프롤로그 내용 중앙에 배치 & 사라지기
-            transform: `translate(-50%, calc(-50% + ${scrolledIn}px))`,
-            opacity: progress,
-        });
-
-        $('.prologue-box>.logo').css({
-            // 프롤로그 로고 작아지기
-            transform: `scale(${progress})`,
-        });
-
-        $('.prologue-bg>div').each(function (index) {
-            // 스크롤하면 에피소드에 오브젝트 움직이기
-            if (index <= 4) {
-                $(this).css({
-                    transform: `translateY(${scrolledIn}px) rotateY(${30 * progress}deg)`,
-                    opacity: progress,
-                });
-            } else {
-                $(this).css({
-                    transform: `translateY(${scrolledIn}px)`,
-                    opacity: progress,
-                });
-            }
-        });
-    }
-
-    function onScrollEpisode() {
-        /* episode scroll */
-        const $episode_info = getSectionInfo($episode);
-        if (!checkScroll($episode_info)) return; // 스크롤 범위 밖이면
-
-        const viewportH = $(window).height();
-        const scrolledIn = scrollTop - $episode_info.secTop; // 섹션 진입 후 진행된 세로 스크롤량
-        const progress = Math.min(Math.max(scrolledIn / ($episode_info.secH - viewportH), 0), 1); // 진행도(0 > 1)
-        $episode.find('.object01').each(function (index) {
-            // 스크롤하면 사진 회전하기
-            let move = Math.min(Math.max((scrolledIn - device_height * index) / (device_height / 2), 0), 1); // 진행도(0 > 1), 그에 따른 가로 이동량
-            console.log(move);
-            $(this).css('transform', `rotateY(${180 * move}deg)`);
-        });
-    }
-
-    function onScrollGallery() {
-        /* gallery scroll */ const $gallery_info = getSectionInfo($gallery);
-        if (!checkScroll($gallery_info)) return; // 스크롤 범위 밖이면
-        const viewportH = $(window).height();
-        const maxX = $gallery.data('maxX') || 0;
-        const scrolledIn = scrollTop - $gallery_info.secTop; // 섹션 진입 후 진행된 세로 스크롤량
-
-        const translateX = -Math.min(maxX, scrolledIn);
-        $gallery_track.css('transform', `translateX(${translateX}px)`); // 가로 이동 적용
-        const movePacman = (translateX / device_width) * -100;
-        $('.progress>.pacman').css('left', `${movePacman}px`);
-        // if(Math.floor(movePacman%100) == 0){
-        //     $('.progress>.pacman').css({'background': 'url(images/bg/pacman1.png) no-repeat 0 0', 'background-size': 'cover'});
-        // }else{
-        //     $('.progress>.pacman').css({'background': 'url(images/bg/pacman2.png) no-repeat 0 0', 'background-size': 'cover'});
-        // }
-        $('.progress>.star').each(function (index) {
-            if (index <= movePacman / 100) {
-                $(this).css('opacity', 0.5);
-            } else {
-                $(this).css('opacity', 1);
-            }
-        });
-    }
-
-    /* gallery 생성 */
-    function writeGallery() {
-        for (let i = 1; i <= 10; i++) {
-            // 51 // 갤러리 사진 출력
-            let img = $('<img>').attr('src', `images/gallery/${i}.jpg`).attr('alt', `현장 포토 ${i}`);
-            let li = $('<li>').attr('class', 'gallery-img');
-            img.appendTo(li);
-            li.appendTo($('.gallery-box'));
+    $gnb.find('a').click(function (e) {
+        $gnb.css({ height: 0, opacity: 0 }).hide();
+        let target = $('#menu-btn');
+        if (!target.hasClass('active')) {
+            target.find('a').text('BACK');
+            $gnb.show().stop().animate({ height: '100vh', opacity: 1 }, 200);
+        } else {
+            target.find('a').text('MENU');
+            $gnb.css({ height: 0, opacity: 0 }).hide();
         }
-        for (let i = 0; i < 10; i++) {
-            // 51 // 갤러리 별 출력
-            let div = $('<div>').attr('class', 'star');
-            div.css('left', `${100 * i}px`);
-            div.appendTo($('.progress-bar>.progress'));
-        }
-    }
+        target.toggleClass('active');
+        // 해당 내용으로 스크롤
+        var id = e.target.getAttribute('href');
+        // smoother.scrollTo(id, true, 'top top');
+        e.preventDefault();
+    });
 });
