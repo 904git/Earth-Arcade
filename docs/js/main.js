@@ -16,10 +16,10 @@ $(function () {
             img.appendTo(li);
             li.appendTo($('.gallery-box'));
         }
-        for (let i = 0; i < 10; i++) {
+        for (let i = 1; i <= 10; i++) {
             // 51 // 갤러리 별 출력
             let div = $('<div>').attr('class', 'star').attr('href', `#img${i}`);
-            div.css('left', `${100 * i}px`);
+            div.css('left', `${100 * (i- 1)}px`);
             div.appendTo($('.progress-bar>.progress'));
         }
     }
@@ -148,9 +148,21 @@ $(function () {
             pin: true,
         },
     });
+    // 캐릭터 오브젝트 옮기기
+    gsap.utils.toArray('.characters-bg>div').forEach((object) => {
+        gsap.to(object, {
+            scrollTrigger: {
+                trigger: '.characters-container',
+                start: 'top top',
+                scrub: true,
+            },
+            rotation: 10,
+            scale: 1.2
+        });
+    });
     // 갤러리 가로 스크롤
     let sections = gsap.utils.toArray('.gallery-img');
-    gsap.to(sections, {
+    let gallery = gsap.to(sections, {
         xPercent: -100 * (sections.length - 1),
         ease: 'none',
         scrollTrigger: {
@@ -211,6 +223,31 @@ $(function () {
                 $(this).hide();
             });
     });
+    $(window).scroll(function(){
+        let scTop = $(window).scrollTop();
+        if(gallery.scrollTrigger.start <= scTop && scTop <= gallery.scrollTrigger.end){
+            $('.progress .star').each(function(){
+                let target = $('.pacman').position().left;
+                if($(this).position().left < target){
+                    $(this).css('opacity', 0.5);
+                }else{
+                    $(this).css('opacity', 1);
+                }
+            });
+        }
+    });
+    $('.progress .star').click(function(){
+        let id = $(this).attr("href");
+        let index = $(this).index() - 1; // 1부터
+        let targetElem = $(id);
+        gsap.to(window, {
+            scrollTo: {
+                y: gallery.scrollTrigger.start + 667 * index,
+                autoKill: false,
+            },
+            duration: 1
+        });
+    });
     /* Menu */
     let $gnb = $('#gnb');
     $('#menu-btn').click(function (event) {
@@ -224,7 +261,7 @@ $(function () {
             target.find('a').text('MENU');
             $gnb.css({ height: 0, opacity: 0 }).hide();
         }
-        $(this).toggleClass('active');
+        target.toggleClass('active');
     });
     $gnb.find('a').click(function (e) {
         // 메뉴 클릭 이벤트 - (해당 영역으로 이동)
@@ -238,7 +275,7 @@ $(function () {
             $gnb.css({ height: 0, opacity: 0 }).hide();
         }
         target.toggleClass('active');
-        var id = e.target.getAttribute('href');
+        let id = e.target.getAttribute('href');
         smoother.scrollTo(id, true, 'top top'); // 스크롤
         e.preventDefault();
     });

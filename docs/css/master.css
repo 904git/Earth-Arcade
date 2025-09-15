@@ -1,7 +1,7 @@
 @import url(font.css);
 :root {
     --white-color: #f3f3f3;
-    --black-color: #222222;
+    --black-color: #111111;
 }
 
 /* basic style */
@@ -81,8 +81,17 @@ body {
 }
 /* main.html style */
 #main {
-    background: #5526AA;
-    background: linear-gradient(180deg,rgba(85, 38, 170, 1) 0%, rgba(23, 14, 81, 1) 100%);
+    /* background: #5526AA;
+    background: linear-gradient(180deg,rgba(85, 38, 170, 1) 0%, rgba(23, 14, 81, 1) 100%); */
+}
+#main .main_background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url(../images/bg/background01.jpg) no-repeat 0 0;
+    z-index: -100;
 }
 #menu-btn {
     position: fixed;
@@ -99,8 +108,9 @@ body {
 #gnb {
     width: 100%;
     height: 0;
-    background: #5526AA;
-    background: linear-gradient(180deg,rgba(85, 38, 170, 1) 0%, rgba(23, 14, 81, 1) 100%);
+    /* background: #5526AA;
+    background: linear-gradient(180deg,rgba(85, 38, 170, 1) 0%, rgba(23, 14, 81, 1) 100%); */
+    background: url(../images/bg/background01.jpg) no-repeat 0 0;
     transition: .5s;
     position: fixed;
     top: 0;
@@ -482,6 +492,9 @@ body {
     height: 100vh;
     /* margin-bottom: 80vh; */
 }
+.characters-container h3 {
+    animation: blinkText 2s infinite;
+}
 .characters-container h3,
 .gallery-container h3 {
     font-family: 'DOSIyagiBoldface';
@@ -641,7 +654,7 @@ body {
     cursor: pointer;
     position: absolute;
     top: 10px;
-    left: 10px;
+    left: 20px;
 }
 /* characters */
 .characters {
@@ -755,7 +768,7 @@ body {
     background-size: cover;
 }
 .characters .character8 {
-    background: url(../images/episode/arms_torong1.png) no-repeat 50% 50%;
+    background: url(../images/character/character8.jpg) no-repeat 50% 50%;
     background-size: cover;
 }
 .characters .character1::before {
@@ -780,7 +793,7 @@ body {
     content: "OKWANG";
 }
 .characters .character8::before {
-    content: "NA";
+    content: "?";
 }
 /* gallery-container */
 /* 가로 스크롤 섹션 래퍼 */
@@ -973,4 +986,19 @@ footer {
 }
 .sns-info > li {
     width: 30px;
+}
+
+@keyframes blinkText{
+    0% {
+        opacity: 1;
+    }
+    10% {
+        opacity: 0;
+    }
+    20% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 1;
+    }
 }
