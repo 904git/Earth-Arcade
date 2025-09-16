@@ -32,7 +32,7 @@ video {
     overflow-x: hidden;
 } */
 /* 스크롤바 없애기 */
-/* html::-webkit-scrollbar,
+html::-webkit-scrollbar,
 body::-webkit-scrollbar {
     display: none;
 }
@@ -40,7 +40,7 @@ html,
 body {
     -ms-overflow-style: none;
     scrollbar-width: none;
-} */
+}
 /* index.html style */
 #home {
     width: 100%;
