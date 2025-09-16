@@ -49,21 +49,17 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    /* background: #5526AA;
-    background: linear-gradient(180deg,rgba(85, 38, 170, 1) 0%, rgba(23, 14, 81, 1) 100%); */
     background: url(../images/bg/background01.jpg) no-repeat 0 0;
+    background-size: cover;
 }
 #home h1 {
     text-indent: -9999px;
     background: url(../images/logo.png) no-repeat 0 0;
-    width: 500px;
-    height: 275px;
     background-size: cover;
     margin-bottom: 10px;
 }
 #home h2 {
     font-family: "DOSIyagiBoldface";
-    font-size: 80px;
     color: var(--white-color);
     margin-bottom: 10px;
 }
@@ -78,95 +74,9 @@ body {
 }
 #home a {
     font-size: 24px;
+    animation: blinkText 2s infinite;
 }
-/* main.html style */
-#main {
-    /* background: #5526AA;
-    background: linear-gradient(180deg,rgba(85, 38, 170, 1) 0%, rgba(23, 14, 81, 1) 100%); */
-}
-#main .main_background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url(../images/bg/background01.jpg) no-repeat 0 0;
-    z-index: -100;
-}
-#menu-btn {
-    position: fixed;
-    top: 30px;
-    left: 30px;
-    z-index: 1000;
-}
-#menu-btn>a {
-    font-family: 'DOSIyagiBoldface';
-    font-size: 24px;
-    color: var(--white-color);
-}
-/* gnb style */
-#gnb {
-    width: 100%;
-    height: 0;
-    /* background: #5526AA;
-    background: linear-gradient(180deg,rgba(85, 38, 170, 1) 0%, rgba(23, 14, 81, 1) 100%); */
-    background: url(../images/bg/background01.jpg) no-repeat 0 0;
-    transition: .5s;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 500;
-    opacity: 0;
-    display: none;
-}
-#gnb h2 {
-    padding: 60px 0;
-    text-align: center;
-    font-family: 'DOSIyagiBoldface';
-    font-size: 80px;
-    color: #1BE5DE;
-}
-#gnb>ul>li {
-    text-align: center;
-    margin-bottom: 50px;
-}
-#gnb>ul>li>a {
-    font-family: 'DOSIyagiBoldface';
-    font-size: 50px;
-    color: var(--white-color);
-    position: relative;
-}
-#gnb>ul>li:hover>a {
-    color: #F7CC1D;
-}
-#gnb>ul>li:hover>a::before {
-    content: "";
-    display: block;
-    background: url(../images/monster7.png) no-repeat 0 0;
-    background-size: cover;
-    width: 50px;
-    height: 37px;
-    position: absolute;
-    left: -80px;
-    top: 50%;
-    transform: translateY(-50%);
-}
-.sub-url {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 200px;
-}
-.sub-url>p>a {
-    font-family: 'DOSIyagiBoldface';
-    font-size: 30px;
-    color: #999;
-}
-/* contents */
-#contents {
-    width: 100%;
-}
-/* section style */
+/* intro.html */
 /* video container */
 .video-container {
     position: relative;
@@ -180,8 +90,6 @@ body {
     gap: 20px;
     z-index: 400;
     position: absolute;
-    bottom: 50px;
-    right: 140px;
 }
 .btn-container .sound-btn {
     background: url(../images/video/sound_muted.png) no-repeat 0 0;
@@ -231,96 +139,97 @@ body {
     color: #1BE5DE;
     opacity: 1;
 }
+/* main.html style */
+#main .main_background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url(../images/bg/background01.jpg) no-repeat 0 0;
+    background-size: cover;
+    z-index: -100;
+}
+/* gnb style */
+#menu-btn {
+    position: fixed;
+    top: 30px;
+    left: 30px;
+    z-index: 1000;
+}
+#menu-btn>a {
+    font-family: 'DOSIyagiBoldface';
+    font-size: 24px;
+    color: var(--white-color);
+}
+#gnb {
+    width: 100%;
+    height: 0;
+    background: url(../images/bg/background01.jpg) no-repeat 0 0;
+    background-size: cover;
+    transition: .5s;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 500;
+    opacity: 0;
+    display: none;
+}
+#gnb .gnb-inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+}
+#gnb h2 {
+    text-align: center;
+    font-family: 'DOSIyagiBoldface';
+    color: #1BE5DE;
+}
+#gnb ul>li {
+    text-align: center;
+    margin-bottom: 40px;
+}
+#gnb ul>li>a {
+    font-family: 'DOSIyagiBoldface';
+    color: var(--white-color);
+    position: relative;
+}
+#gnb ul>li:hover>a {
+    color: #F7CC1D;
+}
+#gnb ul>li:hover>a::before {
+    content: "";
+    display: block;
+    background: url(../images/monster7.png) no-repeat 0 0;
+    background-size: cover;
+    width: 50px;
+    height: 37px;
+    position: absolute;
+    left: -80px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.sub-url {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.sub-url>p>a {
+    font-family: 'DOSIyagiBoldface';
+    color: #999;
+}
+/* contents */
+#contents {
+    width: 100%;
+}
+/* section style */
 /* prologue-container */
 .prologue-container {
     height: 100vh;
     margin-bottom: 20vh;
     position: relative;
-}
-/* prologue-bg */
-.prologue-container .prologue-bg {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    top: 0;
-    left: 0;
-    z-index: -1000;
-}
-.prologue-bg>div {
-    position: absolute;
-    transform: translateY(50px);
-}
-.prologue-bg .object01 {
-    width: 260px;
-    height: 260px;
-    background: url(../images/bg/earth.png) no-repeat 0 0;
-    background-size: cover;
-    top: 62px;
-    left: 128px;
-}
-.prologue-bg .object02 {
-    width: 120px;
-    height: 120px;
-    background: url(../images/bg/planet1.png) no-repeat 0 0;
-    background-size: cover;
-    top: 800px;
-    left: 1080px;
-    transform: rotate(5deg);
-}
-.prologue-bg .object03 {
-    width: 200px;
-    height: 132px;
-    background: url(../images/bg/planet2.png) no-repeat 0 0;
-    background-size: cover;
-    top: 510px;
-    left: 1300px;
-}
-.prologue-bg .object04 {
-    width: 180px;
-    height: 180px;
-    background: url(../images/bg/planet3.png) no-repeat 0 0;
-    background-size: cover;
-    top: 120px;
-    left: 1580px;
-}
-.prologue-bg .object05 {
-    width: 482px;
-    height: 282px;
-    background: url(../images/bg/planet4.png) no-repeat 0 0;
-    background-size: cover;
-    top: 570px;
-    left: -173px;
-    transform: rotate(-14deg);
-}
-.prologue-bg .object06,
-.prologue-bg .object07,
-.prologue-bg .object08,
-.prologue-bg .object09,
-.prologue-bg .object10 {
-    width: 40px;
-    height: 40px;
-    background: url(../images/bg/star5.png) no-repeat 0 0;
-    background-size: cover;
-}
-.prologue-bg .object06 {
-    top: 50px;
-    right: 538px;
-}
-.prologue-bg .object07 {
-    top: 164px;
-    left: 588px;
-}
-.prologue-bg .object08 {
-    top: 427px;
-    left: 145px;
-}
-.prologue-bg .object09 {
-    bottom: 197px;
-    right: 156px;
-}
-.prologue-bg .object10 {
-    bottom: 106px;
-    left: 500px;
 }
 /* prologue-box */
 .prologue-container .prologue-box {
@@ -331,25 +240,18 @@ body {
     transform: translate(-50%, -50%);
 }
 .prologue-box .logo {
-    width: 500px;
     margin: 0 auto 30px;
 }
 .prologue-box p {
     font-family: 'PFStardust';
     font-weight: 400;
-    line-height: 24px;
-    font-size: 18px;
     color: var(--white-color);
-    margin-bottom: 20px;
     transition: .5s;
-    /* transform: scale(0); */
     opacity: 0;
 }
 /* episode-container */
-/* 가로 스크롤 섹션 래퍼 */
 .episode-container {
-    position: relative; /* JS로 동적 height 세팅 */
-    /* margin-bottom: 80vh; */
+    position: relative;
 }
 .episode-box {
     width: 100vw;
@@ -459,18 +361,16 @@ body {
 }
 /* description */
 .episode-box>.description {
+    width: 80%;
     text-align: center;
-    /* position: fixed; */
-    position: absolute;  /* fixed → absolute */
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 .episode-box>.description>h2 {
     font-family: 'DOSIyagiBoldface';
-    font-size: 150px;
     color: #F1129F;
-    margin-bottom: 30px;
     -webkit-text-stroke: 1px var(--black-color);
     /* text-shadow: -5px 0px var(--black-color), 0px 5px var(--black-color), 5px 0px var(--black-color), 0px -5px var(--black-color); */
 }
@@ -478,8 +378,6 @@ body {
     /* max-width: 600px; */
     font-family: 'PFStardust';
     font-weight: 400;
-    line-height: 30px;
-    font-size: 20px;
     color: var(--white-color);
     /* -webkit-text-stroke: 0.2px var(--black-color); */
     text-shadow: -1px 0px var(--black-color), 0px 1px var(--black-color), 1px 0px var(--black-color), 0px -1px var(--black-color);
@@ -490,7 +388,6 @@ body {
     position: relative;
     width: 100%;
     height: 100vh;
-    /* margin-bottom: 80vh; */
 }
 .characters-container h3 {
     animation: blinkText 2s infinite;
@@ -503,89 +400,9 @@ body {
     text-align: center;
     padding: 60px 0;
 }
-.characters-bg {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-}
-.characters-bg>div {
-    position: absolute;
-}
-.characters-bg>.object01 {
-    background: url(../images/bg/carot.png) no-repeat 0 0;
-    background-size: cover;
-    height: 80px;
-    width: 80px;
-    top: 12%;
-    left: 10%;
-}
-.characters-bg>.object02 {
-    background: url(../images/bg/sunglasses.png) no-repeat 0 0;
-    background-size: cover;
-    height: 34px;
-    width: 100px;
-    top: 91%;
-    left: 14%;
-    transform: rotate(3deg);
-}
-.characters-bg>.object03 {
-    background: url(../images/bg/pixel-tr.png) no-repeat 0 0;
-    background-size: cover;
-    height: 135px;
-    width: 80px;
-    top: 20%;
-    left: 84%;
-    transform: rotate(-8deg);
-}
-.characters-bg>.object04 {
-    background: url(../images/bg/pixel-cy.png) no-repeat 0 0;
-    background-size: cover;
-    height: 113px;
-    width: 80px;
-    top: 56%;
-    left: 3%;
-    transform: rotate(-21deg);
-}
-.characters-bg>.object05 {
-    background: url(../images/bg/pixel-oh.png) no-repeat 0 0;
-    background-size: cover;
-    height: 85px;
-    width: 80px;
-    top: 79%;
-    left: 88%;
-    transform: rotate(28deg);
-}
-.characters-bg>.object06 {
-    background: url(../images/bg/star5.png) no-repeat 0 0;
-    background-size: cover;
-    height: 20px;
-    width: 20px;
-    top: 37%;
-    left: 3%;
-    transform: rotate(3deg);
-}
-.characters-bg>.object07 {
-    background: url(../images/bg/star5.png) no-repeat 0 0;
-    background-size: cover;
-    height: 20px;
-    width: 20px;
-    top: 51%;
-    left: 85%;
-    transform: rotate(28deg);
-}
-.characters-bg>.object08 {
-    background: url(../images/bg/star5.png) no-repeat 0 0;
-    background-size: cover;
-    height: 20px;
-    width: 20px;
-    top: 63%;
-    left: 95%;
-    transform: rotate(6deg);
-}
 .characters-box {
     display: flex;
     flex-direction: column;
-    width: 1200px;
     margin: 0 auto;
 }
 /* character-info */
@@ -608,9 +425,6 @@ body {
 }
 .character-info.active {
     margin-bottom: 20px;
-}
-.character-info.active~.characters {
-    flex-direction: row;
 }
 .character-info.active~.characters div>p{
     display: none;
@@ -687,7 +501,6 @@ body {
     filter: none;
 }
 .characters div>div:hover {
-    width: 500px;
     filter: none;
 }
 .characters div>div::after,
@@ -947,7 +760,6 @@ body {
 }
 /* footer */
 footer {
-    height: 600px;
     padding: 60px;
     box-sizing: border-box;
     background: var(--black-color);
@@ -957,23 +769,17 @@ footer {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    height: 300px;
-    width: 800px;
-    gap: 20px;
 }
 .comp-info>li>.comp-name {
     display: flex;
-    gap: 20px;
     align-items: center;
 }
 .comp-info>li>.comp-name .comp-logo {
-    width: 200px;
     margin-bottom: 10px;
 }
 .comp-info>li>p {
     font-family: 'PFStardust';
-    font-weight: 400;
-    font-size: 16px;   
+    font-weight: 400;  
 }
 .comp-info>li>p:first-child {
     color: #999;
@@ -986,6 +792,482 @@ footer {
 }
 .sns-info > li {
     width: 30px;
+}
+/* mobile */
+@media screen and (max-width: 1279px) {
+    /* index.html */
+    #home h1 {
+        width: 300px;
+        height: 165px;
+    }
+    #home h2 {
+        font-size: 50px;
+    }
+    /* intro.html */
+    .video-container .btn-container {
+        bottom: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    /* gnb */
+    #gnb h2 {
+        padding: 80px 0 30px;
+        font-size: 46px;
+    }
+    #gnb ul>li>a {
+        font-size: 30px;
+    }
+    .sub-url {
+        gap: 50px;
+    }
+    .sub-url>p>a {
+        font-size: 24px;
+    }
+    .prologue-bg {
+        display: none;
+    }
+    /* prologue-box */
+    .prologue-box .logo {
+        width: 300px;
+        margin: 0 auto 30px;
+    }
+    .prologue-box p {
+        line-height: 18px;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+    .episode-bg p { /* 년도 */
+        font-size: 50px;
+    }
+    /* episode 1 */
+    .episode1 .object01 {
+        width: 150px;
+        height: 150px;
+        border:10px solid var(--white-color);
+        top: 12%;
+        right: -1%;
+    }
+    .episode1 .object02 {
+        width: 150px;
+        height: 150px;
+        border:10px solid var(--white-color);
+        bottom: 13%;
+        left: 0;
+    }
+    .episode1 .object03 {
+        top: 28%;
+        left: 15%;
+        transform: rotate(-8deg);
+    }
+    /* episode 2 */
+    .episode2 .object01 {
+        width: 150px;
+        height: 150px;
+        border:10px solid var(--white-color);
+        top: 15%;
+        right: -2%;
+    }
+    .episode2 .object02 {
+        width: 150px;
+        height: 150px;
+        border:10px solid var(--white-color);
+        bottom: 12%;
+        left: 6%;
+    }
+    .episode2 .object03 {
+        top: 22%;
+        left: 12%;
+        transform: rotate(5deg);
+    }
+    /* episode 3 */
+    .episode3 .object01 {
+        width: 150px;
+        height: 150px;
+        border:10px solid var(--white-color);
+        top: 12%;
+        right: 8%;
+    }
+    .episode3 .object02 {
+        width: 150px;
+        height: 150px;
+        border:10px solid var(--white-color);
+        bottom: 13%;
+        left: -1%;
+    }
+    .episode3 .object03 {
+        top: 20%;
+        left: 10%;
+        transform: rotate(-3deg);
+    }
+    /* episode-box description */
+    .episode-box>.description>h2 {
+        font-size: 50px;
+        margin-bottom: 20px;
+    }
+    .episode-box>.description p {
+        line-height: 18px;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+    /* characters */
+    .characters {
+        height: calc(100vh - 180px);
+        gap: 10px;
+    }
+    .characters-container h3,
+    .gallery-container h3 {
+        font-size: 30px;
+        color: #F7CC1D;
+        padding: 60px 0 30px;
+    }
+    .character-bg {
+        display: none;
+    }
+    .characters .earth-hero,
+    .characters .space-tteok-employee {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .characters div>div {
+        width: 100%;
+    }
+    .characters div>p{
+        display: none;
+    }
+    .characters-box {
+        width: 90%;
+        position: relative;
+    }
+    .character-info {
+        height: 100% !important;
+        display: none;
+    }
+    .character-info.active {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100% !important;
+        width: 100%;
+        z-index: 1000;
+        margin-bottom: 0;
+    }
+    .character-info>div {
+        flex-direction: column;
+    }
+    .character-info>div .ch-img {
+        margin-bottom: 40px;
+    }
+    .character-info>div .ch-img>img {
+        width: calc((100% - 40px) / 3);
+    }
+    .character-info>div .ch-description {
+        padding: 0;
+    }
+    /* gallery */
+    .gallery-box>.gallery-img>img {
+        width: 80%;
+        height: 600px;
+        border: 10px solid var(--white-color);
+    }
+    .progress-bar {
+        display: none;
+    }
+    .gallery-bg {
+        display: none;
+    }
+    /* footer */
+    footer {
+        padding: 60px 20px;
+    }
+    .comp-info {
+        gap: 10px;
+        margin-bottom: 30px;
+    }
+    .comp-info>li>.comp-name {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .comp-info>li>.comp-name .comp-logo {
+        width: 100px;
+        margin-bottom: 10px;
+    }
+    .comp-info>li>p {
+        font-size: 14px;   
+    }
+}
+/* pc */
+@media screen and (min-width: 1280px) {
+    /* index.html */
+    #home h1 {
+        width: 500px;
+        height: 275px;
+    }
+    #home h2 {
+        font-size: 80px;
+    }
+    /* intro.html */
+    .video-container .btn-container {
+        bottom: 10%;
+        right: 140px;
+    }
+    /* gnb */
+    #gnb h2 {
+        padding: 60px 0;
+        text-align: center;
+        font-family: 'DOSIyagiBoldface';
+        font-size: 80px;
+        color: #1BE5DE;
+    }
+    #gnb ul>li>a {
+        font-family: 'DOSIyagiBoldface';
+        font-size: 50px;
+        color: var(--white-color);
+        position: relative;
+    }
+    .sub-url {
+        gap: 200px;
+    }
+    .sub-url>p>a {
+        font-size: 30px;
+    }
+    /* prologue-bg */
+    .prologue-container .prologue-bg {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        top: 0;
+        left: 0;
+        z-index: -1000;
+    }
+    .prologue-bg>div {
+        position: absolute;
+        transform: translateY(50px);
+    }
+    .prologue-bg .object01 {
+        width: 260px;
+        height: 260px;
+        background: url(../images/bg/earth.png) no-repeat 0 0;
+        background-size: cover;
+        top: 62px;
+        left: 128px;
+    }
+    .prologue-bg .object02 {
+        width: 120px;
+        height: 120px;
+        background: url(../images/bg/planet1.png) no-repeat 0 0;
+        background-size: cover;
+        top: 800px;
+        left: 1080px;
+        transform: rotate(5deg);
+    }
+    .prologue-bg .object03 {
+        width: 200px;
+        height: 132px;
+        background: url(../images/bg/planet2.png) no-repeat 0 0;
+        background-size: cover;
+        top: 510px;
+        left: 1300px;
+    }
+    .prologue-bg .object04 {
+        width: 180px;
+        height: 180px;
+        background: url(../images/bg/planet3.png) no-repeat 0 0;
+        background-size: cover;
+        top: 120px;
+        left: 1580px;
+    }
+    .prologue-bg .object05 {
+        width: 482px;
+        height: 282px;
+        background: url(../images/bg/planet4.png) no-repeat 0 0;
+        background-size: cover;
+        top: 570px;
+        left: -173px;
+        transform: rotate(-14deg);
+    }
+    .prologue-bg .object06,
+    .prologue-bg .object07,
+    .prologue-bg .object08,
+    .prologue-bg .object09,
+    .prologue-bg .object10 {
+        width: 40px;
+        height: 40px;
+        background: url(../images/bg/star5.png) no-repeat 0 0;
+        background-size: cover;
+    }
+    .prologue-bg .object06 {
+        top: 50px;
+        right: 538px;
+    }
+    .prologue-bg .object07 {
+        top: 164px;
+        left: 588px;
+    }
+    .prologue-bg .object08 {
+        top: 427px;
+        left: 145px;
+    }
+    .prologue-bg .object09 {
+        bottom: 197px;
+        right: 156px;
+    }
+    .prologue-bg .object10 {
+        bottom: 106px;
+        left: 500px;
+    }
+    /* prologue0box */
+    .prologue-box .logo {
+        width: 500px;
+    }
+    .prologue-box p {
+        line-height: 24px;
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+    /* description */
+    .episode-box>.description>h2 {
+        font-size: 150px;
+        margin-bottom: 30px;
+    }
+    .episode-box>.description p {
+        line-height: 30px;
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+    /* character-bg */
+    .characters-bg {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+    .characters-bg>div {
+        position: absolute;
+    }
+    .characters-bg>.object01 {
+        background: url(../images/bg/carot.png) no-repeat 0 0;
+        background-size: cover;
+        height: 80px;
+        width: 80px;
+        top: 12%;
+        left: 10%;
+    }
+    .characters-bg>.object02 {
+        background: url(../images/bg/sunglasses.png) no-repeat 0 0;
+        background-size: cover;
+        height: 34px;
+        width: 100px;
+        top: 91%;
+        left: 14%;
+        transform: rotate(3deg);
+    }
+    .characters-bg>.object03 {
+        background: url(../images/bg/pixel-tr.png) no-repeat 0 0;
+        background-size: cover;
+        height: 135px;
+        width: 80px;
+        top: 20%;
+        left: 84%;
+        transform: rotate(-8deg);
+    }
+    .characters-bg>.object04 {
+        background: url(../images/bg/pixel-cy.png) no-repeat 0 0;
+        background-size: cover;
+        height: 113px;
+        width: 80px;
+        top: 56%;
+        left: 3%;
+        transform: rotate(-21deg);
+    }
+    .characters-bg>.object05 {
+        background: url(../images/bg/pixel-oh.png) no-repeat 0 0;
+        background-size: cover;
+        height: 85px;
+        width: 80px;
+        top: 79%;
+        left: 88%;
+        transform: rotate(28deg);
+    }
+    .characters-bg>.object06 {
+        background: url(../images/bg/star5.png) no-repeat 0 0;
+        background-size: cover;
+        height: 20px;
+        width: 20px;
+        top: 37%;
+        left: 3%;
+        transform: rotate(3deg);
+    }
+    .characters-bg>.object07 {
+        background: url(../images/bg/star5.png) no-repeat 0 0;
+        background-size: cover;
+        height: 20px;
+        width: 20px;
+        top: 51%;
+        left: 85%;
+        transform: rotate(28deg);
+    }
+    .characters-bg>.object08 {
+        background: url(../images/bg/star5.png) no-repeat 0 0;
+        background-size: cover;
+        height: 20px;
+        width: 20px;
+        top: 63%;
+        left: 95%;
+        transform: rotate(6deg);
+    }
+    .characters-box {
+        width: 1200px;
+    }
+    .characters div>div:hover {
+        width: 500px;
+    }
+    .character-info.active~.characters {
+        flex-direction: row;
+    }
+    /* footer */
+    footer {
+        height: 600px;
+        padding: 60px;
+        box-sizing: border-box;
+        background: var(--black-color);
+        color: var(--white-color);
+    }
+    .comp-info {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        height: 300px;
+        width: 800px;
+        gap: 20px;
+    }
+    .comp-info>li>.comp-name {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+    }
+    .comp-info>li>.comp-name .comp-logo {
+        width: 200px;
+        margin-bottom: 10px;
+    }
+    .comp-info>li>p {
+        font-family: 'PFStardust';
+        font-weight: 400;
+        font-size: 16px;   
+    }
+    .comp-info>li>p:first-child {
+        color: #999;
+        margin-bottom: 10px;
+    }
+    .sns-info {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+    }
+    .sns-info > li {
+        width: 30px;
+    }
 }
 
 @keyframes blinkText{

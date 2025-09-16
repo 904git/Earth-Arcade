@@ -217,11 +217,16 @@ $(function () {
         $('.character-info').removeClass('active'); // 비활성화
 
         $('.characters>div>div').css({ height: '', width: '' }); // 캐릭터 크기 변경
-        $('.character-info')
+        if($(window).outerWidth() < 1280){
+            $('.character-info').hide();
+        }else{
+            $('.character-info')
             .stop()
             .animate({ height: '0' }, 'slow', function () {
                 $(this).hide();
             });
+        }
+        
     });
     $(window).scroll(function(){
         let scTop = $(window).scrollTop();
@@ -256,7 +261,7 @@ $(function () {
         let target = $(this);
         if (!target.hasClass('active')) {
             target.find('a').text('BACK');
-            $gnb.show().stop().animate({ height: '100vh', opacity: 1 }, 200);
+            $gnb.show().stop().animate({ height: '100%', opacity: 1 }, 200);
         } else {
             target.find('a').text('MENU');
             $gnb.css({ height: 0, opacity: 0 }).hide();
